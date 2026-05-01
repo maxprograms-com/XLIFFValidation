@@ -13,7 +13,7 @@
 class App {
 
     mainURL: string;
-    session: string;
+    session: string = '';
     dropArea: HTMLDivElement;
     fileInput: HTMLInputElement;
 
@@ -41,7 +41,7 @@ class App {
     validateFile(): void {
         let formData: FormData = new FormData();
         if (this.fileInput.files) {
-            document.getElementById('result').innerText = 'Validating...';
+            document.getElementById('result')!.innerText = 'Validating...';
             formData.append('xliff', this.fileInput.files[0]);
             fetch(this.mainURL + '/upload', {
                 method: 'POST',
@@ -53,9 +53,9 @@ class App {
             }).then(async (response: Response) => {
                 let json: any = await response.json();
                 if (json.status === 'OK') {
-                    document.getElementById('result').innerText = 'File "' + json.xliff + '" is valid XLIFF ' + json.version;
+                    document.getElementById('result')!.innerText = 'File "' + json.xliff + '" is valid XLIFF ' + json.version;
                 } else {
-                    document.getElementById('result').innerText = 'File "' + json.xliff + '" is not valid XLIFF. \n\nReason: ' + json.reason;
+                    document.getElementById('result')!.innerText = 'File "' + json.xliff + '" is not valid XLIFF. \n\nReason: ' + json.reason;
                 }
             }).catch((reason: Error) => {
                 console.error('Error:', reason.message);
@@ -77,7 +77,7 @@ class App {
     }
 
     dropHandler(event: DragEvent): void {
-        if (event.dataTransfer.files) {
+        if (event.dataTransfer?.files) {
             event.preventDefault();
             this.fileInput.files = event.dataTransfer.files;
             if (this.fileInput.files) {

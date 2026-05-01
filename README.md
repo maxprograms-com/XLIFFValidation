@@ -9,16 +9,15 @@ You can validate your XLIFF files at [https://dev.maxprograms.com/Validation/](h
 ## Requirements
 
 - JDK 21  is required for compiling and building. Get it from [Adoptium](https://adoptium.net/).
-- Apache Ant 1.10.14 or newer. Get it from [https://ant.apache.org/](https://ant.apache.org/)
-- Node.js 24.13.0 LTS or newer. Get it from [https://nodejs.org/](https://nodejs.org/)
-- TypeScript 5.9.3 or newer. get it from [https://www.typescriptlang.org/](https://www.typescriptlang.org/)
+- Gradle 9.5 or newer is required for building. Get it from [https://gradle.org/](https://gradle.org/)
+- Node.js 24.15.0 LTS or newer. Get it from [https://nodejs.org/](https://nodejs.org/)
 
 ## Building
 
 - Checkout this repository.
 - Point your `JAVA_HOME` environment variable to JDK 21
 - Run `npm install` to download and install NodeJS dependencies
-- Run `ant` to compile the Java code and generate `Validation.war`
+- Run `gradle` to compile the Java code and generate `Validation.war`
 
 ## Deploying
 
@@ -28,3 +27,10 @@ You can validate your XLIFF files at [https://dev.maxprograms.com/Validation/](h
 - Set `OpenXLIFF_HOME` environment variable and point it to the same folder
 - Copy `catalog` folder to `XLIFF_HOME/catalog`
 - Start Tomcat
+- Visit `https://yourServerURL/Validation` to access the validation service
+
+---
+
+## Legal
+
+License information for all included components is available in the [licenses](licenses/README.md) directory.

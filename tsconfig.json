@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-      "target": "ES6",
-      "module": "ES2020",
+      "target": "esnext",
+      "module": "esnext",
       "noImplicitAny": true,
-      "jsx": "react",
-      "outDir": "js",
-      "moduleResolution": "node",
+      "rootDir": "./ts",
+      "outDir": "./js",
       "lib": [
           "dom",
           "es6"
       ],
-      "forceConsistentCasingInFileNames": true
+      "forceConsistentCasingInFileNames": true,
+      "strict": true
   },
   "include": [
       "ts/**/*"

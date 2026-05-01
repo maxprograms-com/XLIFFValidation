@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+        resources {
+            srcDirs = ['src']
+            exclude '**/*.java'
+        }
+    }
+}
+
+tasks.configureEach {
+    outputs.upToDateWhen { false }
+}
+
+dependencies {
+    compileOnly fileTree(dir: 'WebContent/WEB-INF/lib', include: '*.jar')
+    compileOnly files('lib/javax.servlet-api.jar')
+}
+
+war {
+    archiveFileName = 'Validation.war'
+    destinationDirectory = file('.')
+    from('WebContent') {
+        exclude '**/*.xcf'
+        exclude '**/*.java'
+    }
+    from('js')     { into('js') }
+    from('css')    { into('css') }
+    from('images') { into('images') }
+    classpath = files()
+}
+
+clean {
+    delete 'WebContent/WEB-INF/classes'
+    delete 'js'
+    delete 'Validation.war'
+}
+
+task typescript(type: Exec) {
+    dependsOn clean
+    executable 'npm'
+    args 'run-script', 'build'
+}
+
+compileJava {
+    dependsOn clean
+    destinationDirectory = file('WebContent/WEB-INF/classes')
+}
+
+war.dependsOn compileJava, typescript
+build.dependsOn war
+
+defaultTasks 'build'
